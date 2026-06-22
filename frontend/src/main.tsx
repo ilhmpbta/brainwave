@@ -27,22 +27,15 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: '/home',
     element: <AppLayout username="Player" level={5} score={1250} />,
+    children: [
+      { path: '/home', element: <Home /> },
+      { path: '/stats', element: <Stats /> },
+      { path: '/leaderboard', element: <Leaderboard /> },
+      { path: '/settings', element: <Settings /> },
+    ],
   },
-  {
-    path: '/stats',
-    element: <AppLayout username="Player" level={5} score={1250} />,
-  },
-  {
-    path: '/leaderboard',
-    element: <AppLayout username="Player" level={5} score={1250} />,
-  },
-  {
-    path: '/settings',
-    element: <AppLayout username="Player" level={5} score={1250} />,
-  },  
-])
+]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

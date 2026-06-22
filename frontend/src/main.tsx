@@ -28,19 +28,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <AppLayout username="Player" level={5} score={1250} hearts={3} />,
+    element: <AppLayout username="Player" level={5} score={1250} />,
   },
   {
     path: '/stats',
-    element: <AppLayout username="Player" level={5} score={1250} hearts={3} />,
+    element: <AppLayout username="Player" level={5} score={1250} />,
   },
   {
     path: '/leaderboard',
-    element: <AppLayout username="Player" level={5} score={1250} hearts={3} />,
+    element: <AppLayout username="Player" level={5} score={1250} />,
   },
   {
     path: '/settings',
-    element: <AppLayout username="Player" level={5} score={1250} hearts={3} />,
+    element: <AppLayout username="Player" level={5} score={1250} />,
   },  
 ])
 

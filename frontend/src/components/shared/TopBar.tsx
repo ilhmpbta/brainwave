@@ -2,21 +2,31 @@ import BrainWaveLogo from '../../assets/brainwave.svg'
 import ScoreIcon from '../../assets/scoreIcon.svg'
 
 interface TopBarProps {
-  username?: string
-  level?: number
-  score?: number
-  hearts?: number
+  username?: string;
+  level?: number;
+  score?: number;
+  onToggleSidebar?: () => void;
 }
 
-export function TopBar({ 
-  username = "Player", 
-  level = 5, 
-  score = 1250, 
+export function TopBar({
+  username = "Player",
+  level = 5,
+  score = 1250,
+  onToggleSidebar,
 }: TopBarProps) {
   return (
     <header className="flex items-center justify-between px-4 py-3 bg-surface border-b border-secondary">
-      {/* Left: Logo + Username */}
       <div className="flex items-center gap-3">
+        <button
+          onClick={onToggleSidebar}
+          className="lg:flex hidden flex-col gap-1.5 p-1 rounded hover:bg-secondary/30 transition-colors"
+          aria-label="Toggle navigation"
+        >
+          <span className="block w-5 h-0.5 bg-foreground"></span>
+          <span className="block w-5 h-0.5 bg-foreground"></span>
+          <span className="block w-5 h-0.5 bg-foreground"></span>
+        </button>
+
         <div className="w-10 h-10 bg-secondary rounded-full border border-[#3D494C] flex items-center justify-center overflow-hidden">
           <BrainWaveLogo className="w-6 h-6" />
         </div>
@@ -26,18 +36,13 @@ export function TopBar({
         </div>
       </div>
 
-      {/* Right: Score + Thunder */}
       <div className="flex items-center gap-4">
-        {/* Score */}
         <div className="flex items-center gap-1.5">
           <span className="text-foreground text-sm font-semibold">{score.toLocaleString()}</span>
           <span className="text-dimmed text-xs">pts</span>
         </div>
-
         <ScoreIcon className="w-4 h-4 object-contain" />
-
-
       </div>
     </header>
-  )
+  );
 }

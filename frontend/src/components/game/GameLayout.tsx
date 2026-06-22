@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { ConfirmationDialog } from '../shared/ConfirmationDialog';
+import { Modal } from '../shared/Modal';
+import { Slider } from '../shared/Slider';
 import ScoreIcon from '../../assets/scoreIcon.svg';
 
 interface GameLayoutProps {
@@ -19,6 +21,11 @@ export function GameLayout({
   const [isHintModalOpen, setIsHintModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
+  // Volume states (in‑game settings)
+  const [masterVolume, setMasterVolume] = useState(75);
+  const [bgmVolume, setBgmVolume] = useState(50);
+  const [sfxVolume, setSfxVolume] = useState(65);
+
   const handleExit = () => {
     setIsExitModalOpen(false);
     navigate('/home');
@@ -26,19 +33,18 @@ export function GameLayout({
 
   const handleHint = () => {
     setIsHintModalOpen(false);
-    // Show hint logic – could display a toast or highlight cells
     console.log('Showing hint...');
   };
 
-  const handleSettings = () => {
+  const handleSaveSettings = () => {
+    // Save settings (e.g., to context or local storage)
+    console.log('Settings saved:', { masterVolume, bgmVolume, sfxVolume });
     setIsSettingsModalOpen(false);
-    // Open settings – could navigate or open a modal
-    console.log('Opening settings...');
   };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Top Bar – matches TopBar style but no border-bottom */}
+      {/* Top Bar */}
       <header className="flex items-center justify-between px-4 py-3 bg-surface">
         <div className="flex items-center gap-3">
           <button
@@ -69,12 +75,12 @@ export function GameLayout({
         </div>
       </header>
 
-      {/* Game Content – centered grid */}
+      {/* Game Content */}
       <main className="flex-1 flex items-center justify-center p-4">
         <Outlet />
       </main>
 
-      {/* Bottom Bar – 3 buttons: Exit, Hint, Settings */}
+      {/* Bottom Bar */}
       <div className="flex items-center justify-center gap-6 px-4 py-4 border-t border-[#3D494C] my-8">
         <button
           onClick={() => setIsExitModalOpen(true)}
@@ -121,16 +127,49 @@ export function GameLayout({
         confirmVariant="primary"
       />
 
-      <ConfirmationDialog
+      {/* Settings Modal – now using the generic Modal */}
+      <Modal
         isOpen={isSettingsModalOpen}
         onClose={() => setIsSettingsModalOpen(false)}
-        onConfirm={handleSettings}
-        title="Settings"
-        description="Game settings will open here."
-        confirmText="Open Settings"
-        cancelText="Cancel"
-        confirmVariant="primary"
-      />
+        title="Game Settings"
+        footer={
+          <div className="flex justify-end gap-3">
+            <button
+              onClick={() => setIsSettingsModalOpen(false)}
+              className="px-4 py-2 rounded-lg border border-secondary text-foreground hover:bg-secondary/30 transition-colors text-sm font-medium"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleSaveSettings}
+              className="px-4 py-2 rounded-lg bg-primary hover:bg-primary/80 text-background font-medium transition-colors text-sm"
+            >
+              Save
+            </button>
+          </div>
+        }
+      >
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-1">
+              Master Volume
+            </label>
+            <Slider value={masterVolume} onChange={setMasterVolume} />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-1">
+              BGM
+            </label>
+            <Slider value={bgmVolume} onChange={setBgmVolume} />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-1">
+              SFX
+            </label>
+            <Slider value={sfxVolume} onChange={setSfxVolume} />
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

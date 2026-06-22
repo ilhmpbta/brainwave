@@ -1,4 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
+import { PageTransition } from '../components/shared/PageTransition';
+import { SkeletonLeaderboard } from '../components/shared/skeletons/SkeletonLeaderboard';
+import { showToast } from '../utils/toast';
 
 // Types
 interface User {
@@ -44,6 +47,7 @@ export default function Leaderboard() {
   const [showFloatingButton, setShowFloatingButton] = useState(false)
   const [currentUserId] = useState(CURRENT_USER_ID)
   const userRowRef = useRef<HTMLTableRowElement>(null)
+  const [isLoading, setIsLoading] = useState(true);
 
   // Filter users based on search
   const filteredUsers = users.filter(user =>
@@ -56,15 +60,21 @@ export default function Leaderboard() {
 
   // Show/hide floating button based on scroll position
   useEffect(() => {
+    const timer_load = setTimeout(() => setIsLoading(false), 500);
     const handleScroll = () => {
       const scrollY = window.scrollY
-      // Show button after scrolling 200px
-      setShowFloatingButton(scrollY > 200)
+      // Show button after scrolling 100px
+      setShowFloatingButton(scrollY > 100)
     }
 
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      clearTimeout(timer_load)
+    }
   }, [])
+
+  if (isLoading) return <SkeletonLeaderboard />;
 
   // Scroll to current user's row
   const scrollToUser = () => {
@@ -85,6 +95,7 @@ export default function Leaderboard() {
   }
 
   return (
+    <PageTransition>
     <div className="space-y-4 relative">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -219,6 +230,7 @@ export default function Leaderboard() {
           <span className="text-sm whitespace-nowrap">Jump to # {currentUserRank}</span>
         </button>
       )}
-    </div>
+      </div>
+    </PageTransition>
   )
 }

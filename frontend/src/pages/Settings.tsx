@@ -4,6 +4,7 @@ import { Slider } from '../components/shared/Slider';
 import LogoutIcon from '../assets/logout.svg';
 import { EditProfile } from '../components/settings/EditProfile';
 import { ChangePassword } from '../components/settings/ChangePassword';
+import { showToast } from '../utils/toast';
 
 export default function Settings() {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -16,6 +17,7 @@ export default function Settings() {
 
   const handleLogout = () => {
     console.log('Logging out...');
+    showToast.success('Logged out successfully!');
   };
 
   const handleEditProfile = (data: { username: string; email: string }) => {

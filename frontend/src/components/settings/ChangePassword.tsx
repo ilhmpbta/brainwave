@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Modal } from '../shared/Modal';
+import { showToast } from '../../utils/toast';
 
 interface ChangePasswordProps {
   isOpen: boolean;
@@ -20,15 +21,18 @@ export function ChangePassword({
   const handleSave = () => {
     if (newPassword !== confirmPassword) {
       setError('New passwords do not match.');
+      showToast.error('New passwords do not match.');
       return;
     }
     if (newPassword.length < 8) {
       setError('New password must be at least 8 characters.');
+      showToast.error('New password must be at least 8 characters.');
       return;
     }
     setError('');
     onSave({ oldPassword, newPassword });
     onClose();
+    showToast.success('Password changed!');
   };
 
   return (

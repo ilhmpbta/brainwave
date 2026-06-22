@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ConfirmationDialog } from '../shared/ConfirmationDialog';
 import { Modal } from '../shared/Modal';
 import { Slider } from '../shared/Slider';
 import ScoreIcon from '../../assets/scoreIcon.svg';
+import { PageTransition } from '../shared/PageTransition';
+import { SkeletonGame } from '../shared/skeletons/SkeletonGame';
+import { showToast } from '../../utils/toast';
 
 interface GameLayoutProps {
   username?: string;
@@ -20,29 +24,43 @@ export function GameLayout({
   const [isExitModalOpen, setIsExitModalOpen] = useState(false);
   const [isHintModalOpen, setIsHintModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Volume states (in‑game settings)
   const [masterVolume, setMasterVolume] = useState(75);
   const [bgmVolume, setBgmVolume] = useState(50);
   const [sfxVolume, setSfxVolume] = useState(65);
 
+  useEffect(() => {
+    const timer_load = setTimeout(() => setIsLoading(false), 500);
+    return () => {
+      clearTimeout(timer_load);
+    };
+  }, []);
+
+  if (isLoading) return <SkeletonGame />;
+  
   const handleExit = () => {
     setIsExitModalOpen(false);
+    showToast.success('See you soon!');
     navigate('/home');
   };
 
   const handleHint = () => {
     setIsHintModalOpen(false);
     console.log('Showing hint...');
+    toast.success('Hint: Look for patterns in the grid!');
   };
 
   const handleSaveSettings = () => {
     // Save settings (e.g., to context or local storage)
     console.log('Settings saved:', { masterVolume, bgmVolume, sfxVolume });
     setIsSettingsModalOpen(false);
+    showToast.success('Settings saved!');
   };
 
   return (
+    <PageTransition>
     <div className="min-h-screen bg-background flex flex-col">
       {/* Top Bar */}
       <header className="flex items-center justify-between px-4 py-3 bg-surface">
@@ -171,5 +189,6 @@ export function GameLayout({
         </div>
       </Modal>
     </div>
+    </PageTransition>
   );
 }

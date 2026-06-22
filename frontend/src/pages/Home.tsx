@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ConfirmationDialog } from '../components/shared/ConfirmationDialog.tsx';
+import { PageTransition } from '../components/shared/PageTransition';
+import { SkeletonHome } from '../components/shared/skeletons/SkeletonHome';
 
 const gamemodes = [
   {
@@ -66,13 +69,20 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlayingModalOpen, setIsPlayingModalOpen] = useState(false);
   const [selectedMode, setSelectedMode] = useState<(typeof gamemodes)[0] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const timer_load = setTimeout(() => setIsLoading(false), 500);
+    const timer_slide = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
-    return () => clearInterval(timer);
+    return () => {
+      clearTimeout(timer_load);
+      clearInterval(timer_slide);
+    };
   }, []);
+
+  if (isLoading) return <SkeletonHome />;
 
   const handlePlayClick = (mode: (typeof gamemodes)[0]) => {
     setSelectedMode(mode);
@@ -83,6 +93,8 @@ export default function Home() {
     setIsPlayingModalOpen(false);
     if (!selectedMode) return;
 
+    const toastId = toast.loading('Loading game...');
+
     const routeMap: Record<string, string> = {
       'Classic': '/game/cube',
       'Challenge': '/game/ning',
@@ -91,10 +103,15 @@ export default function Home() {
       'Daily Challenge': '/game/daily',
     };
     const path = routeMap[selectedMode.title] || '/game';
-    navigate(path);
+    
+    setTimeout(() => {
+      toast.dismiss(toastId);
+      navigate(path);
+    }, 500);
   };
 
   return (
+    <PageTransition>
     <div className="space-y-6 lg:space-y-8">
       {/* Carousel – unchanged */}
       <div className="hidden lg:block">
@@ -157,7 +174,8 @@ export default function Home() {
         cancelText="Cancel"
         confirmVariant="primary"
       />
-    </div>
+      </div>
+      </PageTransition>
   );
 }
 

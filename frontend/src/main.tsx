@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast';
 import './styles/globals.css'
 
 import Landing from './pages/Landing.tsx'
@@ -58,5 +59,6 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <RouterProvider router={router} />
+    <Toaster position="bottom-right" toastOptions={{ style: { background: '#122131', color: '#D4E4FA' } }} />
   </StrictMode>,
 )

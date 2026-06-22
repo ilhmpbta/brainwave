@@ -41,7 +41,7 @@ export function TopBar({
           <span className="text-foreground text-sm font-semibold">{score.toLocaleString()}</span>
           <span className="text-dimmed text-xs">pts</span>
         </div>
-        <ScoreIcon className="w-4 h-4 object-contain" />
+        <ScoreIcon className="w-8 h-8 object-contain" />
       </div>
     </header>
   );

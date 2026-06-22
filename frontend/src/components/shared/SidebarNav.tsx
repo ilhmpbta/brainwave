@@ -49,7 +49,7 @@ export function SidebarNav({ isOpen, onClose }: SidebarNavProps) {
           <nav className="flex-1 flex flex-col gap-1 px-3">
             <div className="flex items-center gap-3 my-4 mx-auto">
               <BrainWaveLogo className="w-12 h-12" />
-              <p className='text-primary'>BrainWave</p>
+              <p className='text-primary text-2xl'>BrainWave</p>
             </div>
             
             {navItems.map(({ path, label, icon: Icon }) => (

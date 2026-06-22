@@ -4,6 +4,7 @@ import { AuthTabs } from './AuthTabs'
 
 export default function RegisterForm() {
   const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -24,7 +25,7 @@ export default function RegisterForm() {
 
         <div>
           <label htmlFor="username" className="block text-foreground text-sm font-medium mb-1.5"> Username </label>
-          <input id="username" type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-background text-foreground border border-secondary rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary transition-colors placeholder:text-muted" placeholder="Choose a username" />
+          <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full bg-background text-foreground border border-secondary rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary transition-colors placeholder:text-muted" placeholder="Choose a username" />
         </div>
 
         <div>

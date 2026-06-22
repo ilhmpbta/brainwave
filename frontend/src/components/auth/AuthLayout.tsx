@@ -1,4 +1,5 @@
-import brainWaveLogo from '../../assets/brainwave.svg'
+import BrainWaveLogo from '../../assets/brainwave.svg';
+console.log('BrainWaveLogo:', BrainWaveLogo);
 
 interface AuthLayoutProps {
   title: string
@@ -13,7 +14,7 @@ export function AuthLayout({ title, subtitle, children }: AuthLayoutProps) {
 
         <div className="flex justify-center mb-6">
           <div className="w-16 h-16 bg-secondary rounded-xl border border-[#3D494C] flex items-center justify-center">
-            <img src={brainWaveLogo} alt="BrainWave" className="w-16 h-16" />
+            <BrainWaveLogo className="w-16 h-16" />
           </div>
         </div>
 

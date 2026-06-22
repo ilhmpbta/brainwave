@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
-import brainWaveLogo from '../assets/brainwave.svg'
+import BrainWaveLogo from '../assets/brainwave.svg'
 
 export default function Landing() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background px-4">
       <div className="max-w-md w-full text-center">
-        <img src={brainWaveLogo} alt="BrainWave Logo" className="mx-auto w-24 h-24 mb-6" />
+        <BrainWaveLogo className="mx-auto w-24 h-24 mb-6" />
         <h1 className="text-5xl text-primary font-bold tracking-tight">BrainWave</h1>
         <p className="text-foreground text-lg mt-2 opacity-80">Brain Training Simplified</p>
         <div className="w-16 h-1 bg-primary/50 mx-auto my-6 rounded-full" />

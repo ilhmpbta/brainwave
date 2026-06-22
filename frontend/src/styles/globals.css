@@ -5,7 +5,6 @@
   --font-space-grotesk: "Space Grotesk", sans-serif;
   /* Main Colors */
   --color-primary: #4CD7F6;      /* Cyan - Main brand identity */
-  --color-accent: #8B5CF6;       /* Purple - Highlights, hover states */
 
   /* Miscellaneous */
   --color-background: #051424;
@@ -24,6 +23,6 @@
 
 @layer base {
     html {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground font-space-grotesk;
     }
 }

@@ -20,7 +20,7 @@ export default function Settings() {
       </h1>
 
       {/* Account Settings */}
-      <div className="bg-surface rounded-xl border border-secondary p-6 space-y-4">
+      <div className="bg-surface rounded-xl border border-secondary p-6 space-y-4 my-8">
         <h2 className="text-primary text-lg font-medium">Account Settings</h2>
         <div className="divide-y divide-secondary">
           <div className="py-3">
@@ -37,7 +37,7 @@ export default function Settings() {
       </div>
 
       {/* Audio Settings */}
-      <div className="bg-surface rounded-xl border border-secondary p-6 space-y-4">
+      <div className="bg-surface rounded-xl border border-secondary p-6 space-y-4 my-8">
         <h2 className="text-primary text-lg font-medium">Volume / Audio</h2>
         <div className="space-y-4">
           <div>
@@ -62,7 +62,7 @@ export default function Settings() {
       </div>
 
       {/* Terminate Session */}
-      <div className="bg-surface rounded-xl border border-secondary p-6 space-y-4 flex justify-between items-center">
+      <div className="bg-surface rounded-xl border border-secondary p-6 space-y-4 flex justify-between items-center my-8">
         <h2 className="text-error text-lg font-medium">Terminate Session</h2>
         <button
           onClick={() => setIsLogoutModalOpen(true)}

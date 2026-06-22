@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthTabs } from "./AuthTabs";
+import { ForgotPasswordModal } from "./ForgotPasswordModal";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -18,14 +20,43 @@ export default function LoginForm() {
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Username Field */}
         <div>
-          <label htmlFor="username" className="block text-foreground text-sm font-medium mb-1.5"> Username or Email </label>
-          <input id="username" type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-background text-foreground border border-secondary rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary transition-colors placeholder:text-muted" placeholder="Enter your username"/>
+          <label htmlFor="username" className="block text-foreground text-sm font-medium mb-1.5">
+            Username or Email
+          </label>
+          <input
+            id="username"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full bg-background text-foreground border border-secondary rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary transition-colors placeholder:text-muted"
+            placeholder="Enter your username"
+          />
         </div>
 
         {/* Password field */}
         <div>
-          <label htmlFor="password" className="block text-foreground text-sm font-medium mb-1.5"> Password </label>
-          <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full bg-background text-foreground border border-secondary rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary transition-colors placeholder:text-muted" placeholder="Enter your password"/>
+          <label htmlFor="password" className="block text-foreground text-sm font-medium mb-1.5">
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full bg-background text-foreground border border-secondary rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary transition-colors placeholder:text-muted"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        {/* Forgot password link */}
+        <div className="text-right">
+          <button
+            type="button"
+            onClick={() => setIsForgotPasswordOpen(true)}
+            className="text-sm text-dimmed hover:text-primary transition-colors"
+          >
+            Forgot password?
+          </button>
         </div>
 
         {/* Login button */}
@@ -39,9 +70,16 @@ export default function LoginForm() {
 
         <p className="text-center text-dimmed text-sm mt-4">
           Don't have an account?{" "}
-          <Link to="/register" className="text-primary hover:text-primary/80 font-medium transition-colors"> Create one </Link>
+          <Link to="/register" className="text-primary hover:text-primary/80 font-medium transition-colors">
+            Create one
+          </Link>
         </p>
       </form>
+
+      <ForgotPasswordModal
+        isOpen={isForgotPasswordOpen}
+        onClose={() => setIsForgotPasswordOpen(false)}
+      />
     </div>
   );
 }

@@ -29,7 +29,11 @@ export default function LoginForm() {
         </div>
 
         {/* Login button */}
-        <button type="submit" className="w-full bg-primary text-background font-semibold py-3 rounded-xl hover:bg-primary/80 transition-colors mt-2">
+        <button
+          type="submit"
+          className="w-full bg-primary text-background font-semibold py-3 rounded-xl hover:bg-primary/80 transition-colors mt-2"
+          onClick={() => window.location.href = '/home'}
+        >
           Login
         </button>
 

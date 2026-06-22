@@ -1,4 +1,3 @@
-import BrainWaveLogo from '../../assets/brainwave.svg'
 import ScoreIcon from '../../assets/scoreIcon.svg'
 
 interface TopBarProps {

@@ -76,7 +76,7 @@ export default function Settings() {
       <ConfirmationDialog
         isOpen={isLogoutModalOpen}
         onClose={() => setIsLogoutModalOpen(false)}
-        onConfirm={handleLogout}
+        onConfirm={() => { handleLogout(); window.location.href = '/login'; }}
         title="Log Out"
         description="Are you sure you want to log out of BrainWave?"
         confirmText="Log Out"

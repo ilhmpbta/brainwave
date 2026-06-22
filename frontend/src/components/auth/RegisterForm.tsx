@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthTabs } from './AuthTabs'
+import { ConfirmationDialog } from '../shared/ConfirmationDialog'
 
 export default function RegisterForm() {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault()
@@ -39,7 +41,11 @@ export default function RegisterForm() {
           <input id="confirmPassword" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full bg-background text-foreground border border-secondary rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary transition-colors placeholder:text-muted" placeholder="Confirm your password"/>
         </div>
 
-        <button type="submit" className="w-full bg-primary text-background font-semibold py-3 rounded-xl hover:bg-primary/80 transition-colors mt-2">
+        <button
+          type="submit"
+          className="w-full bg-primary text-background font-semibold py-3 rounded-xl hover:bg-primary/80 transition-colors mt-2"
+          onClick={() => setIsRegisterModalOpen(true)}
+        >
           Create Account
         </button>
 
@@ -49,6 +55,17 @@ export default function RegisterForm() {
             Log in
           </Link>
         </p>
+
+        <ConfirmationDialog
+          isOpen={isRegisterModalOpen}
+          onClose={() => setIsRegisterModalOpen(false)}
+          onConfirm={() => { window.location.href = '/home'; }}
+          title="Register"
+          description="Are you sure you want to register for BrainWave?"
+          confirmText="Register"
+          cancelText="Cancel"
+          confirmVariant="primary"
+        />
       </form>
     </div>
   )

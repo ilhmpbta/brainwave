@@ -9,6 +9,12 @@ interface AuthLayoutProps {
 export function AuthLayout({ title, subtitle, children }: AuthLayoutProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="absolute top-2 left-2">
+        <button onClick={() => window.location.href = '/'} className="p-1">
+          <p className="text-sm text-dimmed"> ← Back to Landing Page </p>
+        </button>
+      </div>
+      
       <div className="max-w-md w-full p-8">
 
         <div className="flex justify-center mb-6">

@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ConfirmationDialog } from '../components/shared/ConfirmationDialog.tsx';
 
 const gamemodes = [
   {
@@ -22,6 +24,20 @@ const gamemodes = [
     icon: 'M U L T I',
     color: 'text-primary',
   },
+  {
+    id: 4,
+    title: 'Brain Teaser',
+    description: 'Test your logic with tricky puzzles.',
+    icon: 'B R A I N',
+    color: 'text-primary',
+  },
+  {
+    id: 5,
+    title: 'Daily Challenge',
+    description: 'Solve puzzles daily for a chance to win.',
+    icon: 'D A I L Y',
+    color: 'text-primary',
+  }
 ];
 
 const slides = [
@@ -46,7 +62,10 @@ const slides = [
 ];
 
 export default function Home() {
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPlayingModalOpen, setIsPlayingModalOpen] = useState(false);
+  const [selectedMode, setSelectedMode] = useState<(typeof gamemodes)[0] | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -55,9 +74,29 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
+  const handlePlayClick = (mode: (typeof gamemodes)[0]) => {
+    setSelectedMode(mode);
+    setIsPlayingModalOpen(true);
+  };
+
+  const handleConfirmPlay = () => {
+    setIsPlayingModalOpen(false);
+    if (!selectedMode) return;
+
+    const routeMap: Record<string, string> = {
+      'Classic': '/game/cube',
+      'Challenge': '/game/ning',
+      'Multiplayer': '/game/multi',
+      'Brain Teaser': '/game/brain',
+      'Daily Challenge': '/game/daily',
+    };
+    const path = routeMap[selectedMode.title] || '/game';
+    navigate(path);
+  };
+
   return (
     <div className="space-y-6 lg:space-y-8">
-      {/* Carousel / Announcement Section – visible on large screens only */}
+      {/* Carousel – unchanged */}
       <div className="hidden lg:block">
         <div className="relative w-full h-56 overflow-hidden rounded-xl bg-surface border border-secondary">
           {slides.map((slide, index) => (
@@ -81,7 +120,6 @@ export default function Home() {
               </div>
             </div>
           ))}
-          {/* Slide indicators */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
             {slides.map((_, index) => (
               <button
@@ -98,12 +136,27 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Gamemodes Grid – responsive: 1 col (mobile), 2 col (tablet), 3 col (desktop) */}
+      {/* Gamemodes Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {gamemodes.map((mode) => (
-          <GamemodeCard key={mode.id} mode={mode} />
+          <GamemodeCard
+            key={mode.id}
+            mode={mode}
+            onPlayClick={() => handlePlayClick(mode)}
+          />
         ))}
       </div>
+
+      <ConfirmationDialog
+        isOpen={isPlayingModalOpen}
+        onClose={() => setIsPlayingModalOpen(false)}
+        onConfirm={handleConfirmPlay}
+        title={`Start ${selectedMode?.title || 'Game'}`}
+        description={`Are you sure you want to start a new game of "${selectedMode?.title || 'BrainWave'}"? (±15 minutes)`}
+        confirmText="Start"
+        cancelText="Cancel"
+        confirmVariant="primary"
+      />
     </div>
   );
 }
@@ -116,25 +169,22 @@ interface GamemodeCardProps {
     icon: string;
     color: string;
   };
+  onPlayClick: () => void;
 }
 
-function GamemodeCard({ mode }: GamemodeCardProps) {
+function GamemodeCard({ mode, onPlayClick }: GamemodeCardProps) {
   return (
     <div className="group bg-surface rounded-xl border border-secondary p-6 hover:border-primary/50 transition-all duration-200 hover:shadow-lg hover:shadow-primary/5">
       <div className="flex flex-col items-center text-center">
-        {/* Icon */}
         <div className="text-4xl mb-3">{mode.icon}</div>
-
-        {/* Title */}
         <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
           {mode.title}
         </h3>
-
-        {/* Description */}
         <p className="text-dimmed text-sm mt-1">{mode.description}</p>
-
-        {/* Play Button */}
-        <button className="mt-4 w-full bg-secondary hover:bg-primary/20 text-foreground hover:text-primary font-medium py-2 px-4 rounded-lg transition-all duration-200 border border-secondary hover:border-primary/30">
+        <button
+          className="mt-4 w-full bg-secondary hover:bg-primary/20 text-foreground hover:text-primary font-medium py-2 px-4 rounded-lg transition-all duration-200 border border-secondary hover:border-primary/30"
+          onClick={onPlayClick}
+        >
           Play
         </button>
       </div>

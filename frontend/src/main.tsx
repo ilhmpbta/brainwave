@@ -11,7 +11,14 @@ import Home from './pages/Home.tsx'
 import Stats from './pages/Stats.tsx'
 import Leaderboard from './pages/Leaderboard.tsx'
 import Settings from './pages/Settings.tsx'
+import Game from './pages/Game.tsx'
+import { GameLayout } from './components/game/GameLayout.tsx'
 
+import CUBE from './components/game/CUBE.tsx'
+import NING from './components/game/NING.tsx'
+import MULTI from './components/game/MULTI.tsx'
+import BRAIN from './components/game/BRAIN.tsx'
+import DAILY from './components/game/DAILY.tsx'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +40,17 @@ const router = createBrowserRouter([
       { path: '/stats', element: <Stats /> },
       { path: '/leaderboard', element: <Leaderboard /> },
       { path: '/settings', element: <Settings /> },
+    ],
+  },
+  {
+    element: <GameLayout username="Player" level={5} score={1250} />,
+    children: [
+      { path: '/game', element: <Game /> },
+      { path: '/game/cube', element: <CUBE /> },
+      { path: '/game/ning', element: <NING /> },
+      { path: '/game/multi', element: <MULTI /> },
+      { path: '/game/brain', element: <BRAIN /> },
+      { path: '/game/daily', element: <DAILY /> },
     ],
   },
 ]);

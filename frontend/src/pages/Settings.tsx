@@ -62,14 +62,14 @@ export default function Settings() {
       </div>
 
       {/* Terminate Session */}
-      <div className="bg-surface rounded-xl border border-secondary p-6 space-y-4 flex justify-between items-center my-8">
-        <h2 className="text-error text-lg font-medium">Terminate Session</h2>
+      <div className="bg-surface rounded-xl border border-secondary my-8">
         <button
           onClick={() => setIsLogoutModalOpen(true)}
-          className=" hover:bg-error/80 text-white font-semibold p-2 rounded-lg transition-colors"
+          className="w-full flex justify-between items-center p-6 rounded-xl hover:bg-error/10 transition-colors"
           aria-label="Log Out"
         >
-          <LogoutIcon className="w-6 h-6" />
+          <h2 className="text-error text-lg font-medium">Terminate Session</h2>
+          <LogoutIcon className="w-6 h-6 text-error" />
         </button>
       </div>
 

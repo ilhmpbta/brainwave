@@ -1,5 +1,4 @@
 import BrainWaveLogo from '../../assets/brainwave.svg';
-console.log('BrainWaveLogo:', BrainWaveLogo);
 
 interface AuthLayoutProps {
   title: string

@@ -1,4 +1,3 @@
-// components/auth/AuthTabs.tsx
 import { useNavigate } from 'react-router-dom'
 
 interface AuthTabsProps {

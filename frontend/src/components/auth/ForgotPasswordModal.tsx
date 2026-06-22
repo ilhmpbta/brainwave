@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { Modal } from '../shared/Modal';
 
 interface ForgotPasswordModalProps {
@@ -14,6 +15,7 @@ export function ForgotPasswordModal({ isOpen, onClose }: ForgotPasswordModalProp
     e.preventDefault();
     // TODO: API Call
     console.log('Reset password for:', email);
+    toast.success(`Password reset email sent to ${email}`);
     setStep('success');
   };
 

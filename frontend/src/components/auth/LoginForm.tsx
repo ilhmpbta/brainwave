@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import { AuthTabs } from "./AuthTabs";
 import { ForgotPasswordModal } from "./ForgotPasswordModal";
 
@@ -11,6 +12,8 @@ export default function LoginForm() {
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
     console.log("Login:", { email, password });
+    toast.success('Welcome back!');
+    window.location.href = '/home';
   };
 
   return (

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import toast from "react-hot-toast";
 import { AuthTabs } from './AuthTabs'
 import { ConfirmationDialog } from '../shared/ConfirmationDialog'
 
@@ -13,6 +14,8 @@ export default function RegisterForm() {
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault()
     console.log('Register:', { email, password, confirmPassword })
+    toast.success('Account created successfully!');
+    window.location.href = '/home';
   }
 
   return (

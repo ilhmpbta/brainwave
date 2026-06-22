@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ConfirmationDialog } from '../shared/ConfirmationDialog';
 import { Modal } from '../shared/Modal';
 import { Slider } from '../shared/Slider';
 import ScoreIcon from '../../assets/scoreIcon.svg';
 import { PageTransition } from '../shared/PageTransition';
 import { SkeletonGame } from '../shared/skeletons/SkeletonGame';
+import { showToast } from '../../utils/toast';
 
 interface GameLayoutProps {
   username?: string;
@@ -40,18 +42,21 @@ export function GameLayout({
   
   const handleExit = () => {
     setIsExitModalOpen(false);
+    showToast.success('See you soon!');
     navigate('/home');
   };
 
   const handleHint = () => {
     setIsHintModalOpen(false);
     console.log('Showing hint...');
+    toast.success('Hint: Look for patterns in the grid!');
   };
 
   const handleSaveSettings = () => {
     // Save settings (e.g., to context or local storage)
     console.log('Settings saved:', { masterVolume, bgmVolume, sfxVolume });
     setIsSettingsModalOpen(false);
+    showToast.success('Settings saved!');
   };
 
   return (

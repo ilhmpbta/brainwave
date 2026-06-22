@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Modal } from '../shared/Modal';
+import { showToast } from '../../utils/toast';  
 
 interface EditProfileProps {
   isOpen: boolean;
@@ -22,6 +23,7 @@ export function EditProfile({
   const handleSave = () => {
     onSave({ username, email });
     onClose();
+    showToast.success('Profile updated!');
   };
 
   return (

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { PageTransition } from '../components/shared/PageTransition';
 import { SkeletonLeaderboard } from '../components/shared/skeletons/SkeletonLeaderboard';
+import { showToast } from '../utils/toast';
 
 // Types
 interface User {

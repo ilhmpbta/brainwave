@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { ConfirmationDialog } from '../components/shared/ConfirmationDialog.tsx';
 import { PageTransition } from '../components/shared/PageTransition';
 import { SkeletonHome } from '../components/shared/skeletons/SkeletonHome';
@@ -92,6 +93,8 @@ export default function Home() {
     setIsPlayingModalOpen(false);
     if (!selectedMode) return;
 
+    const toastId = toast.loading('Loading game...');
+
     const routeMap: Record<string, string> = {
       'Classic': '/game/cube',
       'Challenge': '/game/ning',
@@ -100,7 +103,11 @@ export default function Home() {
       'Daily Challenge': '/game/daily',
     };
     const path = routeMap[selectedMode.title] || '/game';
-    navigate(path);
+    
+    setTimeout(() => {
+      toast.dismiss(toastId);
+      navigate(path);
+    }, 500);
   };
 
   return (

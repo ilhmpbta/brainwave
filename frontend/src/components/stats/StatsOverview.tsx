@@ -8,6 +8,9 @@ import {
   Legend,
 } from 'chart.js'
 import { Radar } from 'react-chartjs-2'
+import { useState, useEffect } from 'react'
+import { PageTransition } from '../shared/PageTransition'
+import { SkeletonStatsOverview } from '../shared/skeletons/SkeletonStatsOverview'
 
 ChartJS.register(
   RadialLinearScale,
@@ -98,7 +101,17 @@ const stats = [
 ]
 
 export function StatsOverview() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer_load = setTimeout(() => setIsLoading(false), 500);
+    return () => clearTimeout(timer_load);
+  }, []);
+
+  if (isLoading) return <SkeletonStatsOverview />;
+
   return (
+    <PageTransition>
     <div className="space-y-6">
       {/* Radar Chart */}
       <div className="bg-surface rounded-xl border border-secondary p-6">
@@ -135,5 +148,6 @@ export function StatsOverview() {
         ))}
       </div>
     </div>
+    </PageTransition>
   )
 }

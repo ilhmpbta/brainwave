@@ -15,7 +15,7 @@ export function TopBar({
   onToggleSidebar,
 }: TopBarProps) {
   return (
-    <header className="flex items-center justify-between px-4 py-3 bg-surface border-b border-secondary">
+    <header className="sticky top-0 z-30 flex items-center justify-between px-4 py-3 bg-surface border-b border-secondary">
       <div className="flex items-center gap-3">
         <button
           onClick={onToggleSidebar}
